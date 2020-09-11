@@ -10,7 +10,11 @@ def hello():
 
 @app.route("/status")
 def status():
-	return{'status':'OK'}	
+	return{
+	'status':'OK',
+	'messages':len(db),
+	'user_cnt':len(set(message['name'] for message in db))
+	}	
 
 @app.route("/send", methods = ['POST'])
 def send():
@@ -28,10 +32,13 @@ def send():
 @app.route("/messages")
 def messages():
 	if 'after_id' in request.args:
-		after_id = int(request.args['after_id'])
+		after_id = int(request.args['after_id'])+1
 	else:
 		after_id = 0	
-	return{'messages':db[after_id:]}	
+
+	limit = 100
+
+	return{'messages':db[after_id:after_id+limit]}	
 
 
 app.run()	
