@@ -20,5 +20,6 @@ while  True:
 		pr_print(message)
 		after_id = message['id']
 
+
 		if not message:
 			time.sleep(1)
