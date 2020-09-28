@@ -42,8 +42,13 @@ def size_list(data, key, l):
 	if len(l) == 0:
 		return False
 	if len(l)==1:
+<<<<<<< Updated upstream
 		data[key]=l[0]
 
+=======
+		 data[key]=l[0]
+		 print('!!!',key,' was replaced ')
+>>>>>>> Stashed changes
 			
 
 def size_tuple(t):
@@ -56,7 +61,6 @@ with open('data.json', 'r') as data_file:
 keys = data.keys()
 newd = {"tesas1t": "1"}
 newd.update({"tesast": "2"})
-print(issubclass(list, type(data["test"])))
 print(len(data.keys()))
 
 for key in data.keys():
