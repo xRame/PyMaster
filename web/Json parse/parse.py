@@ -42,8 +42,8 @@ def size_list(data, key, l):
 	if len(l) == 0:
 		return False
 	if len(l)==1:
-		 data[key]=l[0]
-		print('!!!',key,' was replaced ')
+		data[key]=l[0]
+
 			
 
 def size_tuple(t):
