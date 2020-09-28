@@ -1,17 +1,28 @@
 import requests
 
 def get_token(msg):
-	return msg.text.split('\n')[-1].split(' ')[-1]
+	return {'token': msg.text.split('\n')[-1].split(' ')[-1]}
 
-response = requests.get('https://validator-2020.awesomestuff.in/race/start', headers={'Authorization': 'Bearer a9811ec669145955881bc4d773673ea52a35d0b49936e29a2a32acc5f99f8ba6'})
+def start():
+	auth = {'Authorization': 'Bearer a9811ec669145955881bc4d773673ea52a35d0b49936e29a2a32acc5f99f8ba6'}
+	url_start = 'https://validator-2020.awesomestuff.in/race/start'
+	url_move = 'https://validator-2020.awesomestuff.in/race/action/move'
+	url_overcharge = 'https://validator-2020.awesomestuff.in/race/action/overcharge'
+	url_recharge = 'https://validator-2020.awesomestuff.in/race/action/recharge'
+	url_slow = 'https://validator-2020.awesomestuff.in/race/action/slow'
+	start_info = requests.get(url_start, headers = auth)
+	token = get_token(start_info)
+	print(start_info.text)
+
+	def race(do,token):
+		r = requests.post(do,headers=auth, data = token)
+		print(r.text)
+		return get_token(r)
 
 
-r = requests.post('https://validator-2020.awesomestuff.in/race/action/overcharge',headers={'Authorization': 'Bearer a9811ec669145955881bc4d773673ea52a35d0b49936e29a2a32acc5f99f8ba6'}, data = {'token':'a6f3c47e47d8967dbf07ef0eb69bdd96'})
+	for i in range(10):
+		token = race(url_move, token)
 
-print(r.content)
-r = requests.post('https://validator-2020.awesomestuff.in/race/action/move',headers={'Authorization': 'Bearer a9811ec669145955881bc4d773673ea52a35d0b49936e29a2a32acc5f99f8ba6'}, data = {'token':'a37bb404c4d207269bf4dab84ac28c9d'})
-print(r.text.split('\n')[-1])
-print(get_token(r))
-response1 = requests.get('https://validator-2020.awesomestuff.in/race/state?token=a6f3c47e47d8967dbf07ef0eb69bdd96',headers={'Authorization': 'Bearer a9811ec669145955881bc4d773673ea52a35d0b49936e29a2a32acc5f99f8ba6'})
-print(response.content)
-print(response1.content)
+
+start()
+
